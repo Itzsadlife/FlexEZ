@@ -1,3 +1,4 @@
+var eForm=document.querySelector("#empForm");
 var DeptID=document.querySelector("#deptID");
 var empID=document.querySelector("#EmployeeID");
 var empName=document.querySelector("#EmployeeName");
@@ -9,14 +10,14 @@ var supName=document.querySelector("#SupervisorName");
 var empIDFormat = /^[0-9a-zA-Z]+$/;
 var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-var eForm=document.querySelector("#empForm");
+
 
 var employeeList=[];
 
 eForm.addEventListener('submit', (event) => {
     validateEmployeeForm();
     if (isFormValid(eForm) == true) {
-        /*var employee = {
+        var employee = {
             deptID: DeptID.value,
             EmpID: empID.value,
             name: empName.value,
@@ -24,11 +25,9 @@ eForm.addEventListener('submit', (event) => {
             email: empEmail.value,
             SupID: supID.value,
             SupName: supName.value
-        };*/
-        eForm.preventDefault();
-        //employeeList.push(employee);
-        console.log("success!");
-        //alert("Employee name: " + employee.name + "with an ID of " + employee.EmpID + "has been registered!");
+        };
+        employeeList.push(employee);
+        alert("Employee name: " + employee.name + "with an ID of " + employee.EmpID + "has been registered!");
     }
     else {
         event.preventDefault();
@@ -36,12 +35,12 @@ eForm.addEventListener('submit', (event) => {
 });
 
 function validateEmployeeForm() {
-    if (DeptID.value.trim() != "D001"||"D002"|"D003") {
+    if (DeptID.value.trim() != "D001"||"D002"||"D003") {
         setError(DeptID, "Please select a department ID!");
     }
     else {
         setSuccess(DeptID);
-    }
+   }
 
     if (empID.value.trim() == "") {
         setError(empID, "Please fill in the employee ID!");
@@ -64,7 +63,7 @@ function validateEmployeeForm() {
         setError(empPosition, "Please fill in the employee position!");
     }
     else {
-        setSuccess(adminPhone);
+        setSuccess(empPosition);
     }
 
     if (empEmail.value.trim() == "") {
