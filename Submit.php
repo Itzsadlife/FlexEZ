@@ -1,4 +1,5 @@
 <?php
+
 include("db.php");
 
 session_start();
@@ -41,7 +42,7 @@ if (isset($_SESSION['employeeID']) && isset($_SESSION['name'])) {
                         <hr>
                         <div id="EmployeeForm">
                             <h3>Register Employee</h3><hr>
-                            <form>
+                            <form action="submitdb.php" method = "post">
                                 <label> Employee ID </label>
                                 <input type="text" class="form-control col-sm-4 col-form-label" id="ID" value= "<?php echo $_SESSION['employeeID']; ?>" readonly>
                                 <label> Name </label>
@@ -73,7 +74,7 @@ if (isset($_SESSION['employeeID']) && isset($_SESSION['name'])) {
                                   </fieldset>
                                   <div class="form-group row">
                                     <div class="col-sm-10">
-                                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#verModal">Submit</button>
+                                      <button type="submit" name="submit" class="btn btn-primary" data-toggle="modal" data-target="#verModal">Submit</button>
                                     </div>
                                   </div>
                               </form>
