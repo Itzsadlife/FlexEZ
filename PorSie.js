@@ -35,7 +35,7 @@ eForm.addEventListener('submit', (event) => {
 });
 
 function validateEmployeeForm() {
-    if (DeptID.value.trim() != "D001"||"D002"||"D003") {
+    if (DeptID.value.trim() != "D001"|"D002"|"D003") {
         setError(DeptID, "Please select a department ID!");
     }
     else {
