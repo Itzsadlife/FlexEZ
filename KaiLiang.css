@@ -103,7 +103,7 @@ html {
 body {
     margin: auto;
     text-align: center;
-    background-image: url(img/bg.jpg);
+    background-image: url(bg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -130,7 +130,7 @@ nav {
 
 nav div div a {
     margin: auto;
-    color: #1BA098;
+    color: rgb(233, 234, 213);
 }
 
 nav div div {
@@ -160,7 +160,7 @@ form {
     display: flex;
     justify-content: center;
     padding: 10px;
-    background-color: #1D2228;
+    background-color: white;
     
 }
 
@@ -179,10 +179,10 @@ form {
 }
 
 form div label {
-    color: white;
+    color: black;
 }
 
 form label{
-    color: white;
+    color: black;
 }
 

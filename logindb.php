@@ -30,7 +30,9 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
             if ($row['employeeID'] === $uname && $row['password'] === $pass) {
             	$_SESSION['employeeID'] = $row['employeeID'];
             	$_SESSION['name'] = $row['name'];
-            	header("Location: Submit.php");
+                echo "<script>window.location.href='Submit.php?id={$_SESSION['employeeID']}'</script>";
+
+
 		        exit();
             }else{
 				header("Location: login.php?error=Incorect User name or password");
@@ -46,3 +48,5 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 	header("Location: login.php");
 	exit();
 }
+
+?>
