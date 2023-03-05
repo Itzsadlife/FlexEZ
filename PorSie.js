@@ -10,8 +10,6 @@ var supName=document.querySelector("#SupervisorName");
 var empIDFormat = /^[0-9a-zA-Z]+$/;
 var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-
-
 var employeeList=[];
 
 eForm.addEventListener('submit', (event) => {
@@ -27,7 +25,7 @@ eForm.addEventListener('submit', (event) => {
             SupName: supName.value
         };
         employeeList.push(employee);
-        alert("Employee name: " + employee.name + "with an ID of " + employee.EmpID + "has been registered!");
+        alert("Employee name: " + employee.name + " with an ID of " + employee.EmpID + " has been registered!");
     }
     else {
         event.preventDefault();
@@ -35,48 +33,46 @@ eForm.addEventListener('submit', (event) => {
 });
 
 function validateEmployeeForm() {
-    if (DeptID.value.trim() != "D001"|"D002"|"D003") {
+    if (DeptID && DeptID.value.trim() != "D0001" && DeptID.value.trim() != "D0002" && DeptID.value.trim() != "D0003") {
         setError(DeptID, "Please select a department ID!");
     }
     else {
         setSuccess(DeptID);
-   }
+    }
 
-    if (empID.value.trim() == "") {
+    if (empID && empID.value.trim() == "") {
         setError(empID, "Please fill in the employee ID!");
     }
-    else if (validateFormat(empID.value, empIDFormat)) {
+    else if (empID && validateFormat(empID.value, empIDFormat)) {
         setSuccess(empID);
     }
-    else {
-        setError(empID, "Please follow the employee ID format...")
+    else if (empID) {
+        setError(empID, "Please follow the employee ID format...");
     }
 
-    if (empName.value.trim() == "") {
+    if (empName && empName.value.trim() == "") {
         setError(empName, "Please fill in the employee name!");
     }
     else {
         setSuccess(empName);
     }
     
-    if (empPosition.value.trim() == "") {
+    if (empPosition && empPosition.value.trim() == "") {
         setError(empPosition, "Please fill in the employee position!");
     }
     else {
         setSuccess(empPosition);
     }
 
-    if (empEmail.value.trim() == "") {
+    if (empEmail && empEmail.value.trim() == "") {
         setError(empEmail, "Please fill in the email!");
     }
-    else if (validateFormat(empEmail.value, emailFormat)) {
+    else if (empEmail && validateFormat(empEmail.value, emailFormat)) {
         setSuccess(empEmail);
     }
-    else {
+    else if (empEmail) {
         setError(empEmail, "Email format is invalid.");
     }
-
-
 }
 
 function setError(element, errorMessage) {
@@ -111,6 +107,3 @@ function isFormValid(form) {
     });
     return result;
 }
-
-
-
