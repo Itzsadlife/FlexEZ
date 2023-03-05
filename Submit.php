@@ -5,7 +5,8 @@ include("db.php");
 session_start();
 
 if (isset($_SESSION['employeeID']) && isset($_SESSION['name'])) {
- ?>
+    ?>
+ 
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -42,7 +43,7 @@ if (isset($_SESSION['employeeID']) && isset($_SESSION['name'])) {
                         <hr>
                         <div id="EmployeeForm">
                             <h3>Register Employee</h3><hr>
-                            <form action="submitdb.php" method = "post">
+                            <form action="submitdb.php" method = "POST">
                                 <label> Employee ID </label>
                                 <input type="text" class="form-control col-sm-4 col-form-label" id="ID" value= "<?php echo $_SESSION['employeeID']; ?>" readonly>
                                 <label> Name </label>
@@ -50,25 +51,25 @@ if (isset($_SESSION['employeeID']) && isset($_SESSION['name'])) {
                                 <div class="form-group row">
                                     <label for="workType" class="col-sm-4 col-form-label">Work Type</label>
                                     <div class="col-sm-10">
-                                    <select id="workType" class="form-control col-sm-5 col-form-label">
-                                        <option selected>(Select Work Type)</option>
-                                        <option>Work From Home</option>
-                                        <option>Flexi Hours</option>
-                                        <option>Hybrid</option>
+                                    <select name='workType' id='workType' class="form-control col-sm-5 col-form-label">
+                                        <option selected >(Select Work Type)</option>
+                                        <option value='Work From Home' id="workType1" name="workType1">Work From Home</option>
+                                        <option value='Flexi Hours' id="workType1" name="workType2">Flexi Hours</option>
+                                        <option value='Hybrid' id="workType1" name="workType3">Hybrid</option>
                                     </select>
                                     </div>
                                   </div>
                                   <div class="form-group row">
                                     <label for="description" class="col-sm-4 col-form-label">Description</label>
                                     <div class="col-sm-10">
-                                      <textarea type="text" class="form-control" id="description" placeholder="Description"></textarea>
+                                      <textarea type="text" class="form-control" id="description" name="description" placeholder="Description"></textarea>
                                     </div>
                                   </div>
                                   <fieldset class="form-group">
                                     <div class="row">
                                         <label for="Reason" class="col-sm-4 col-form-label">Reason</label>
                                         <div class="col-sm-10">
-                                          <textarea type="text" class="form-control" id="Reason" placeholder="Reason"></textarea>
+                                          <textarea type="text" class="form-control" id="Reason" name="Reason" placeholder="Reason"></textarea>
                                         </div>
                                     </div>
                                   </fieldset>
@@ -94,11 +95,12 @@ if (isset($_SESSION['employeeID']) && isset($_SESSION['name'])) {
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-         <script src="PorSie.js"></script>
     </body>
 </html>
 <?php
-}else{
+}
+else{
     header("Location: index.php");
     exit();
-}?>
+}
+?>
