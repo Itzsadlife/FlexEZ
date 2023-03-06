@@ -25,7 +25,7 @@
                     <nav>
                         <div class="row row-cols-5 row-cols-md-1">
                             <div class="col py-3 text-center text-md-left">Menu</div>
-                            <div class="col py-3 text-center text-md-left"><a href="register.html">Register Employee</a></div>
+                            <div class="col py-3 text-center text-md-left"><a href="RegisterEmployee.php">Register Employee</a></div>
                             <div class="col py-3 text-center text-md-left"><a href="">View FWA Analytics</a></div>
                             <div class="col py-3 text-center text-md-left"><a href="">Logout</a></div>
                         </div>
