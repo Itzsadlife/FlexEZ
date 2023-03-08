@@ -9,39 +9,7 @@ if (isset($_SESSION['employeeID']) && isset($_SESSION['name'])) {
 
     <!DOCTYPE html>
     <html lang="en">
-
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>FlexEZ | Submit FWA Request </title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="KaiLiang.css">
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-            integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    </head>
-
-    <body>
-        <div class="logoBanner">
-            <img src="logo.jpg" alt="FlexIS">
-        </div>
-        <div class="colorDiv"></div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-3 bg-secondary sticky-top">
-                    <nav>
-                        <div class="row row-cols-5 row-cols-md-1">
-                            <div class="col py-3 text-center text-md-left">Menu</div>
-                            <div class="col py-3 text-center text-md-left"><a href="register.html">Register Employee</a>
-                            </div>
-                            <div class="col py-3 text-center text-md-left"><a href="">View FWA Analytics</a></div>
-                            <div class="col py-3 text-center text-md-left"><a href="">Logout</a></div>
-                        </div>
-                    </nav>
-                </div>
-                <div class="col-md-7 bg-light">
+<?php include('headerkai.php')?>
                     <main>
                         <hr>
                         <div id="EmployeeForm">
@@ -68,7 +36,7 @@ if (isset($_SESSION['employeeID']) && isset($_SESSION['name'])) {
                                     <label for="description" class="col-sm-4 col-form-label">Description</label>
                                     <div class="col-sm-10">
                                         <textarea type="text" class="form-control" id="description" name="description"
-                                            placeholder="Description"></textarea>
+                                            placeholder="Description" required></textarea>
                                     </div>
                                 </div>
                                 <fieldset class="form-group">
@@ -76,7 +44,7 @@ if (isset($_SESSION['employeeID']) && isset($_SESSION['name'])) {
                                         <label for="Reason" class="col-sm-4 col-form-label">Reason</label>
                                         <div class="col-sm-10">
                                             <textarea type="text" class="form-control" id="Reason" name="Reason"
-                                                placeholder="Reason"></textarea>
+                                                placeholder="Reason" required></textarea>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -87,17 +55,7 @@ if (isset($_SESSION['employeeID']) && isset($_SESSION['name'])) {
                                 </div>
                             </form>
                         </div>
-                </div>
-            </div>
-            </main>
-            <br>
-        </div>
-        <div class="col-md-1"></div>
-        </div>
-        </div>
-        <div class="footer">
-            <small><i>Copyright &copy; 2023 HELP University</i></small>
-        </div>
+               <?php include('footerkai.php')?>
 
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
