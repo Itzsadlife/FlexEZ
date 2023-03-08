@@ -27,10 +27,16 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 
 		if (mysqli_num_rows($result) === 1) {
 			$row = mysqli_fetch_assoc($result);
-            if ($row['employeeID'] === $uname && $row['password'] === $pass) {
+			if($row['employeeID']=='H001' && $row['password']==$pass){
+				$_SESSION['employeeID'] = $row['employeeID'];
+            	$_SESSION['name'] = $row['name'];
+                echo "<script>window.location.href='HRAdminDashBoard.php?id={$_SESSION['employeeID']}'</script>";
+		        exit();
+			}
+            elseif ($row['employeeID'] === $uname && $row['password'] === $pass) {
             	$_SESSION['employeeID'] = $row['employeeID'];
             	$_SESSION['name'] = $row['name'];
-                echo "<script>window.location.href='Submit.php?id={$_SESSION['employeeID']}'</script>";
+                echo "<script>window.location.href='EmployeeHome.php?id={$_SESSION['employeeID']}'</script>";
 
 
 		        exit();

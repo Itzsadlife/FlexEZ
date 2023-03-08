@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>FlexIS | Register Employee </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="PorSie.css">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" 
+         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="logoBanner">
+            <img src="img/logo.jpg" alt="FlexIS">
+        </div>
+        <div class="colorDiv"></div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-3 bg-secondary sticky-top">
+                    <nav>
+                        <div class="row row-cols-5 row-cols-md-1">
+                            <div class="col py-3 text-center text-md-left">Menu</div>
+                            <div class="col py-3 text-center text-md-left"><a href="register.html">Register Employee</a></div>
+                            <div class="col py-3 text-center text-md-left"><a href="">View FWA Analytics</a></div>
+                            <div class="col py-3 text-center text-md-left"><a href="">Logout</a></div>
+                        </div>
+                    </nav>
+                </div>
+                <div class="col-md-7 bg-light">
+                    <main>
+                        <hr>
+                        <div id="EmployeeForm">
+                            <h3>Register Employee</h3><hr>
+                            <form id="empForm">
+                                <fieldset class="border p-2">
+                                    <div class="form-group input-control">
+                                        <label for="deptID">Please select the department ID: </label>
+                                        <select class="form-select" name="deptID" id="deptID">
+                                            <option selected value="department0"> Department ID </option>
+                                            <option value="D001"> D001 </option>
+                                            <option value="D002"> D002 </option>
+                                            <option value="D003"> D003</option>
+                                        </select>
+                                        <p>Error message</p>
+                                    </div>
+                                    <div class="form-group input-control">
+                                        <label for="EmployeeID">Employee ID </label>
+                                        <input type="text" class="form-control form-control-sm" name="EmployeeID" id="EmployeeID" >
+                                        <p>Error message</p>
+                                    </div>
+                                    <div class="form-group input-control">
+                                        <label for="EmployeeName">EmployeeName </label>
+                                        <input type="text" class="form-control form-control-sm" name="EmployeeName" id="EmployeeName">
+                                        <p>Error message</p>
+                                    </div>
+                                    <div class="form-group input-control">
+                                        <label for="SAposition">Position</label>
+                                        <input type="text" class="form-control form-control-sm" name="EmployeePosition" id="EmployeePosition">
+                                        <p>Error message</p>
+                                    </div>
+                                    <div class="form-group input-control">
+                                        <label for="Email">Email </label>
+                                        <input type="text" class="form-control form-control-sm" name="Email" id="Email">
+                                        <p>Error message</p>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-sm-6 input-control">
+                                            <label for="SupervisorID">Supervisor ID (if available) </label>
+                                            <input type="text" class="form-control form-control-sm" name="SupervisorID" id="SupervisorID">
+                                        </div>
+                                        <div class="form-group col-sm-6 input-control">
+                                            <label for="SupervisorName">Supervisor Name</label>
+                                            <input type="text" class="form-control form-control-sm" name="SupervisorName" id="SupervisorName">
+                                        </div>
+                                    </div>
+                                    <input type="submit" value="Submit" class="btn btn-success" id="submit">
+                                </fieldset>
+                            </form>
+                        </div>
+                    </main>
+                    <br>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+        <div class="footer">
+            <small><i>Copyright &copy; 2023 HELP University</i></small>
+        </div>
+
+        <!-- JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" 
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+         <script src="PorSie.js"></script>
+    </body>
+</html>
