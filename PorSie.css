@@ -1,0 +1,102 @@
+html {
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    margin: auto;
+    text-align: center;
+    background-image: url(img/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    font-family:'Times New Roman', Times, serif;
+    overflow: auto;
+    height: 100%;
+	width: 100%;
+}
+ 
+.modal-open {
+    overflow: auto; 
+}
+
+main {
+    margin: auto;
+    width: 100%;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+}
+
+nav div div a {
+    margin: auto;
+    color: rgb(233, 234, 213);
+}
+
+nav div div a:hover {
+    text-decoration: none;
+}
+
+h2, h3 {
+    width: 100%;
+    padding: 20px;
+}
+
+form {
+    margin: auto;
+    width: 70%;
+}
+
+#tutForm {
+    width: auto;
+}
+
+#resForm {
+    width: auto;
+}
+
+.logoBanner {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: white;
+    
+}
+
+.colorDiv {
+    height: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+.footer {
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+.input-control input {
+    display:block;
+    width:100%;  
+}
+
+.error input {
+    border:1px red solid;
+}
+
+.success input {
+    border:1px green solid;
+}
+
+.input-control p {
+    color: #ff3860;
+    font-size: 9px;
+    height: 13px;
+    visibility: hidden;
+}
+
+.error p {
+    visibility: visible;
+}
