@@ -5,21 +5,20 @@ include 'db.php';
                         <hr>
                         <h3>Review Employee Schedule</h3><br><hr>
                         <h3>Date Available</h3>
-                    <form action="" method="post">
-                    <select name="courseName">
-                        <option value="">Available Date</option>
-                        <?php 
-                        $query ="SELECT 'employeeID', 'date' FROM dailySchedule WHERE ";
-                        $result = $db->query($query);
-                        if($result->num_rows> 0){
-                            while($optionData=$result->fetch_assoc()){
-                            $option =$optionData['date'];
+                    <form action="ReviewEmployeeSchedule.php" method="POST">
+                        <?php
+                        echo "<select name='date'>
+                                    <option value=''>Available Date</option>";
+                        $query ="SELECT * FROM dailySchedule";
+                        $result = mysqli_query($db, $query);
+                        foreach ($result as $row) {
+                            echo "<option value='" . $row['date'] . "'>" . $row['date'] . "</option>";
+                        }
+                        
+                        ?>                    
+                        <?php
+                            echo"</select>";
                         ?>
-                        <option value="<?php echo $option; ?>" ><?php echo $option; ?> </option>
-                    <?php
-                        }}
-                        ?>
-                    </select>
                     <input type="submit" name="submit">
                     </form>
                 <br>
