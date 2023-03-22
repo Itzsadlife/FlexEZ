@@ -1,9 +1,10 @@
 <?php include 'header.php';
 include 'db.php';
+include('fetchDataReviewSchedule.php');
 ?>
                     <main>
                         <hr>
-                        <h3>Review Employee Schedule</h3><br><hr>
+                        <h1>Review Employee Schedule</h1><br><hr>
                         <h3>Date Available</h3>
                     <form action="ReviewEmployeeSchedule.php" method="POST">
                         <?php
@@ -23,47 +24,49 @@ include 'db.php';
                     </form>
                 <br>
                 <hr>
-                <h3>Employee Supervised</h3>
+
+
+<?php
+if(isset($employees)>0)
+{
+?>
+        <h3>Employee Supervised</h3>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col" data-column="name" data-order="desc">Name </th>
-                                <th scope="col" data-column="workLoc" data-order="desc">Work Location</th>
-                                <th scope="col" data-column="workHrs" data-order="desc">Work Hours</th>
-                                <th scope="col" data-column="workRep" data-order="desc">Work Report</th>
+                                <th scope="col" data-column="employeeID" data-order="desc">Employee ID </th>
+                                <th scope="col" data-column="workLocation" data-order="desc">Work Location</th>
+                                <th scope="col" data-column="workHours" data-order="desc">Work Hours</th>
+                                <th scope="col" data-column="workReport" data-order="desc">Work Report</th>
                             </tr>
                         </thead>
                         <tbody id="tableEmployee">
-                        </tbody>
-                    </table>
-                </div>
-                <br>
-                <div>
-                    <label for="comments">Comments: </label>
-                    <input type="text" class="form-control form-control-sm" name="comments" id="comments" >
-                </div>
-                <br>
-                <div>
-                    <button type="submit" id="submit">Submit</button>
-                </div>
-                <br>
-            
-                    </main>
-                    <br>
-                </div>
-                <div class="col-md-1"></div>
-            </div>
-        </div>
-        <div class="footer">
-            <small><i>Copyright &copy; 2023 HELP University</i></small>
-        </div>
 
-        <!-- JavaScript -->
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" 
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-         <script src="PorSie.js"></script>
-    </body>
-</html>
+                            <?php
+                            if(count($employees)>0)
+                            {
+                            foreach ($employees as $employee) {
+                            ?>
+                            <tr>
+                            <td><a href="EmployeeSchedule.php?employeeID=<?php echo $employee['employeeID'];?>
+                            &workLocation=<?php echo $employee['workLocation'];?>&workHours=<?php echo $employee['workHours'];?>
+                            "><?php echo $employee['employeeID']; ?></td>
+                            <td><?php echo $employee['workLocation']; ?></td>
+                            <td><?php echo $employee['workHours']; ?></td>
+                            <td><?php echo $employee['workReport']; ?></td>
+                            </tr>
+                            <?php
+                            }
+                            }else{
+                            echo "<tr><td colspan='3'>No Data Found</td></tr>";
+                            }
+                            ?>
+                            </table>
+                            <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table><hr><br><br><br>
+                </div>
+<?php include('footer.php');?>
