@@ -1,6 +1,6 @@
 <?php
 include('db.php');
-include('header.php');
+include('headerSupervisor.php');
 $employeeID = $_GET['employeeID'];
 $workHours = $_GET['workHours'];
 $workLocation = $_GET['workLocation'];
@@ -33,7 +33,7 @@ if (isset($_POST['submitForm']))
 <?php foreach ($employees as $employee) {?>
 <main>
     <hr>
-    <h3>Welcome to the HR Admin Dashboard</h3>
+    <h3>Employee Daily Schedule Details</h3>
     <label for="name"> Employee Name: <?php echo $employee['name']; ?> </label><br><br><br>
     <label for="empID"> Employee ID: <?php echo $employeeID; ?></label><br><br><br>
     <label for="workHours">Work Hours: <?php echo $workHours; ?></label><br><br><br>
@@ -47,7 +47,10 @@ if (isset($_POST['submitForm']))
         </div>
 
         <input type="submit" name="submitForm" class="btn btn-success" id="submit">
-    </form>
+    </form><hr>
+
+    <button type="button" class="btn btn-light"><a href='ReviewEmployeeSchedule.php'>Back</button>
+    
 <?php }?>
         
 </main>

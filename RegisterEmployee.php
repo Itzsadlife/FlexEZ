@@ -17,7 +17,7 @@ if (isset($_POST['submitForm']))
         VALUES ('$EmployeeID', '$pw', '$EmployeeName', '$EmployeePosition', '$Email', '$SupervisorID', '$deptID')";
     if (mysqli_query($db, $sql)) {
         // success
-        header('Location: Submit.php');
+        header('Location: HRAdminDashBoard.php');
     } else {
         // error
         echo 'Error: ' . mysqli_error($db);

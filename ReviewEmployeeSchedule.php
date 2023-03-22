@@ -1,4 +1,4 @@
-<?php include 'header.php';
+<?php include 'headerSupervisor.php';
 include 'db.php';
 include('fetchDataReviewSchedule.php');
 ?>
@@ -68,5 +68,7 @@ if(isset($employees)>0)
                             ?>
                         </tbody>
                     </table><hr><br><br><br>
+                    <button type="button" class="btn btn-light"><a href='SupervisorDashboard.php'>Back</button>
+
                 </div>
 <?php include('footer.php');?>

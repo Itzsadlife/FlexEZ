@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>FlexEZ | Register Employee </title>
+        <title>FlexEZ</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="PorSie.css">
@@ -25,7 +25,7 @@
                     <nav>
                         <div class="row row-cols-5 row-cols-md-1">
                             <div class="col py-3 text-center text-md-left">Menu</div>
-                            <div class="col py-3 text-center text-md-left"><a href="RegisterEmployee.php">Register Employee</a></div>
+                            <div class="col py-3 text-center text-md-left"><a href="ReviewEmployeeSchedule.php">Review Employee Schedule</a></div>
                             <div class="col py-3 text-center text-md-left"><a href="">View FWA Analytics</a></div>
                             <div class="col py-3 text-center text-md-left"><a href="logout.php">Logout</a></div>
                         </div>
