@@ -1,6 +1,8 @@
 <?php include 'headerSupervisor.php';
 include 'db.php';
+session_start();
 include('fetchDataReviewSchedule.php');
+$_SESSION['employeeID'];
 ?>
                     <main>
                         <hr>
