@@ -1,4 +1,4 @@
-<?php include 'headerHR.php';
+<?php include 'headerSupervisor.php';
 include 'db.php';
 session_start(); 
 $sql = "SELECT department.deptName
@@ -31,7 +31,7 @@ if (isset($_SESSION['employeeID']) && isset($_SESSION['name'])) {
 
 <main>
     <hr>
-    <h3>Welcome to the HR Admin Dashboard</h3>
+    <h3>Welcome to the Supervisor Dashboard</h3>
     <label for="name"> <?php echo "Employee Name : $_SESSION[name] ";?> </label><br><br><br>
     <label for="empID"><?php echo "Employee ID : $_SESSION[employeeID] ";?> </label><br><br><br>
     <label for="position"><?php echo "DepartmentName : $departmentName ";?></label><br><br><br>
