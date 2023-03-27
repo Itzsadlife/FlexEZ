@@ -1,4 +1,4 @@
-<?php include 'headerSup.php';
+<?php include 'headerSupervisor.php';
 include 'db.php';
 session_start(); 
 $sql = "SELECT department.deptName
@@ -43,6 +43,6 @@ if (isset($_SESSION['employeeID']) && isset($_SESSION['name'])) {
 </main>
 <br>
 <?php
- include 'footerkai.php'; 
+ include 'footer.php'; 
 }
 ?>
