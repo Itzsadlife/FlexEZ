@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2023 at 01:38 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Mar 27, 2023 at 12:24 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,16 +24,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `daily schedule`
+-- Table structure for table `dailyschedule`
 --
 
-CREATE TABLE `daily schedule` (
+CREATE TABLE `dailyschedule` (
+  `employeeID` varchar(10) NOT NULL,
   `date` date NOT NULL,
   `workLocation` varchar(25) NOT NULL,
-  `workHours` int(10) NOT NULL,
-  `workReport` varchar(50) NOT NULL,
-  `supervisorComments` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `workHours` int(20) NOT NULL,
+  `workReport` varchar(50) DEFAULT NULL,
+  `supervisorComments` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dailyschedule`
+--
+
+INSERT INTO `dailyschedule` (`employeeID`, `date`, `workLocation`, `workHours`, `workReport`, `supervisorComments`) VALUES
+('E001', '2023-03-21', 's2', 10, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -44,7 +52,7 @@ CREATE TABLE `daily schedule` (
 CREATE TABLE `department` (
   `deptID` varchar(10) NOT NULL,
   `deptName` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `department`
@@ -52,7 +60,8 @@ CREATE TABLE `department` (
 
 INSERT INTO `department` (`deptID`, `deptName`) VALUES
 ('D0001', 'Information Technology'),
-('D0002', 'Marketing');
+('D0002', 'Marketing'),
+('D0003', 'Human Resources');
 
 -- --------------------------------------------------------
 
@@ -66,16 +75,22 @@ CREATE TABLE `employee` (
   `name` varchar(50) NOT NULL,
   `position` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
+  `FWAstatus` varchar(14) NOT NULL,
   `SupervisorID` varchar(10) DEFAULT NULL,
   `deptID` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`employeeID`, `password`, `name`, `position`, `email`, `SupervisorID`, `deptID`) VALUES
-('E001', 'leonchew', 'Chew Kai Liang', 'IT developer', 'iamcubex@gmail.com', 'S02', 'D0001');
+INSERT INTO `employee` (`employeeID`, `password`, `name`, `position`, `email`, `FWAstatus`, `SupervisorID`, `deptID`) VALUES
+('', '', '', '', '', 'NEW', 'S02', 'D0001'),
+('E001', 'leonchew', 'Chew Kai Liang', 'IT developer', 'iamcubex@gmail.com', 'Work From Home', 'S02', 'D0001'),
+('E123', 'leonchew', 'Yeoh', 'Intern', 'yeoh@gmail.com', 'NEW', 'S02', 'D0001'),
+('E124', 'leonchew', 'chew', 'IT', 'yeoh', 'NEW', 'S02', 'D0001'),
+('H001', 'leonchew', 'HR ADMIN', 'HR ADMIN', 'yeoh@gmail.com', 'HR', NULL, 'D0003'),
+('S02', 'leonchew', 'Supervisor', 'IT Supervisor', 'yeoh@gmail.com', 'Supervisor', NULL, 'D0001');
 
 -- --------------------------------------------------------
 
@@ -92,18 +107,24 @@ CREATE TABLE `request` (
   `reason` varchar(50) NOT NULL,
   `FWAstatus` varchar(10) NOT NULL,
   `comment` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `request`
 --
 
 INSERT INTO `request` (`requestID`, `employeeID`, `requestDate`, `workType`, `description`, `reason`, `FWAstatus`, `comment`) VALUES
-('S001', 'E001', '2022-02-09', 'Work From Home', 'Work From Home', 'Work From Home', 'Pending', '');
+('R487', 'E001', '2023-03-27', 'Work From Home', 'Work From Home', 'Work From Home\r\n', 'Accept', '');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `dailyschedule`
+--
+ALTER TABLE `dailyschedule`
+  ADD KEY `fk_employeeID` (`employeeID`);
 
 --
 -- Indexes for table `department`
@@ -128,6 +149,12 @@ ALTER TABLE `request`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `dailyschedule`
+--
+ALTER TABLE `dailyschedule`
+  ADD CONSTRAINT `fk_employeeID` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`);
 
 --
 -- Constraints for table `employee`
