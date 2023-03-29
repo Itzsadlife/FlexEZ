@@ -15,8 +15,8 @@ $sql = "SELECT department.*, employee.*, request.*, COUNT(DISTINCT employee.empl
         INNER JOIN department ON employee.deptID = department.deptID
         WHERE request.FWAstatus <> 'Pending' AND request.FWAstatus <> 'Reject' 
         AND employee.deptID = '$deptID'
-        GROUP BY request.requestID";
-$result = mysqli_query($db,$sql);
+        GROUP BY department.deptName, request.workType, request.requestDate";
+        $result = mysqli_query($db,$sql);
 // table
 ?>
 
