@@ -81,7 +81,7 @@ if ($FWAstatus == 'NEW') {
 
                 if (new_password.length == 0 || confirm_password.length == 0) {
                     error_messages += "<div class=\"alert alert-danger\" role=\"alert\">Please enter a new password and confirm it.</div>";
-                } else if (new_password !== confirm_password) {
+                } else if (new_password !== confirmx_password) {
                     error_messages += "<div class=\"alert alert-danger\" role=\"alert\">New password and confirm password do not match.</div>";
                 }
 
