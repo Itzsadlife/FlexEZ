@@ -1,100 +1,124 @@
+<?php
+include('headerHR.php');
+include('db.php');
+session_start();
+
+//
+$sql = "SELECT DISTINCT department.deptName, request.workType, request.requestDate,COUNT(DISTINCT employee.employeeID) AS total
+        FROM request
+        INNER JOIN employee ON request.employeeID = employee.employeeID
+        INNER JOIN department ON employee.deptID = department.deptID
+        WHERE request.FWAstatus ='Accept' ";
+
+if (!isset($_POST['deptName'])) {
+  $_POST['deptName'] = 'All Departments';
+}
+
+if ($_POST['deptName'] != 'All Departments') {
+  $deptName = $_POST['deptName'];
+  $sql .= "AND department.deptName = '$deptName' ";
+} else {
+  $sql .= "AND department.deptID LIKE 'D%'";
+}
+
+$sql .= "GROUP BY department.deptName, request.workType, request.requestDate ";
+$sql .= "ORDER BY request.requestDate ASC";
+
+$dept = "SELECT * FROM department WHERE deptName!='Human Resources'";
+$deptName = mysqli_query($db, $dept);
+
+
+$result = mysqli_query($db, $sql);
+?>
+
+<title>FlexEZ | Analytic Report</title>
+<main>
+  <form method="POST" action="viewAnalyticReportHR.php" id="filterForm">
+    <br>
+    <label>Department:</label>
+    <select class="form-control" name='deptName' id='deptName'>
+      <option value='All Departments' <?php if ($_POST['deptName'] == 'All Departments') echo 'selected'; ?>>All Departments</option>
+      <?php
+      while ($row = mysqli_fetch_assoc($deptName)) {
+        $selected = '';
+        if ($_POST['deptName'] == $row['deptName']) {
+          $selected = 'selected';
+        }
+        echo "<option value='$row[deptName]' $selected>$row[deptName]
+          </option>";
+      }
+
+      ?>
+    </select>
+
+
+    <?php
+
+    echo "<table class='table'>";
+    echo "
+        <tr>
+        <th>Date</th>
+        <th>FWA Status</th>
+        <th>Department Name</th>
+        <th>Total</th>
+        </tr>";
+
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        $deptName = $row['deptName'];
+        $fwaStatus = $row['workType'];
+        $total = $row['total'];
+        $requestDate = $row['requestDate'];
+
+        echo "
+            <tr>
+            <td><a href='viewAnalyticDetailsHR.php?date=$requestDate&workType=$fwaStatus&deptName=$deptName'>$requestDate</a></td>
+            <td>$fwaStatus</td>
+            <td>$deptName</td>
+            <td>$total</td>
+            </tr>";
+      }
+    } else {
+      echo "<tr><td colspan='3'>No data found</td></tr>";
+    }
+    echo "</table>";
+
+    ?>
+    <br><br>
+  </form>
+    <hr>
   <?php
-  include('headerHR.php');
-  include('db.php');
+
+  //sql for searching date
+  $schedule = "SELECT * FROM dailyschedule
+  INNER JOIN employee ON dailyschedule.employeeID = employee.employeeID
+  INNER JOIN department ON employee.deptID = department.deptID";
+  $scheduleFetch = mysqli_query($db, $schedule);
+
+  if (isset($_GET['start-date']) && isset($_GET['end-date'])) {
+    // Get start and end dates from form input
+    $startDate = $_GET['start-date'];
+    $endDate = $_GET['end-date'];
+    // Add date range filter to SQL query
+    $schedule .= " WHERE date BETWEEN '$startDate' AND '$endDate'";
+  }
+
+  if (isset($_GET['deptName'])) {
+    // Get selected department from form input
+    $deptName = $_GET['deptName'];
+    // Add department filter to SQL query
+    $schedule .= " AND department.deptName = '$deptName'";
+  }
+
+  $schedule .= " ORDER BY date ASC";
+  $scheduleFetch = mysqli_query($db, $schedule);
   ?>
 
-  <title>FlexEZ | Analytic Report</title>
-  <main>
+  <main class="container">
+
     <form method="GET" action="viewAnalyticReportHR.php" id="filterForm">
-      <?php
-      // Select distinct department names from the department table
-      $sql = "SELECT DISTINCT deptName FROM department WHERE deptID != 'D0003'";
-      $result = mysqli_query($db, $sql);
-
-
-
-      ?>
-      <br><br>
-      <select name="deptSelect" id="deptSelect">
-        <option value="">Select Department</option>
-        <?php
-        while ($dept = mysqli_fetch_assoc($result)) {
-          // Display each department as an <option> in the <select> dropdown
-          echo "<option value='$dept[deptName]'>$dept[deptName]</option>";
-        }
-        ?>
-      </select>
-      <br>
-      <br>
-      <?php
-      echo "
-      <table class='table'>
-          <thead>
-            <tr>
-              <th scope='col'>FWA Status</th>
-              <th scope='col'>Department</th>
-              <th scope='col'>Total</th>
-            </tr>
-          </thead>
-      ";
-      // Run the query again, this time filtering by the selected department (if any)
-      $deptFilter = isset($_GET['deptSelect']) ? $_GET['deptSelect'] : '';
-      $deptFilterClause = $deptFilter ? "AND department.deptName = '$deptFilter'" : '';
-
-      $sql = "SELECT employee.*, department.* 
-          FROM employee, department 
-          WHERE employee.deptID = department.deptID
-          AND department.deptName = '$deptFilter' 
-          AND employee.employeeID NOT LIKE 'S%' 
-          AND employee.employeeID NOT LIKE 'H%'
-          AND employee.FWAstatus <> 'NEW'
-          AND employee.FWAstatus <> 'NONE'
-          ";
-
-
-
-
-      $result = mysqli_query($db, $sql);
-      $result2 = mysqli_query($db, $sql . " GROUP BY employee.FWAstatus");
-
-      $workFromHome = 0;
-      $Hybrid = 0;
-      $FlexiHours = 0;
-
-      while ($dept = mysqli_fetch_assoc($result)) {
-        if ($dept['FWAstatus'] == 'Work From Home') {
-          $workFromHome = $workFromHome + 1;
-        } else if ($dept['FWAstatus'] == 'Hybrid') {
-          $Hybrid = $Hybrid + 1;
-        } else if ($dept['FWAstatus'] == 'FlexiHours') {
-          $FlexiHours = $FlexiHours + 1;
-        }
-      }
-
-      while ($dept = mysqli_fetch_assoc($result2)) {
-        echo "<tr>
-          <td>$dept[FWAstatus]</td>        
-          <td>$dept[deptName]</td>";
-
-        if ($dept['FWAstatus'] == 'Work From Home') {
-          echo "<td>$workFromHome</td>";
-        } else if ($dept['FWAstatus'] == 'Hybrid') {
-          echo "<td>$Hybrid</td>";
-        } else if ($dept['FWAstatus'] == 'FlexiHours') {
-          echo "<td>$FlexiHours</td>";
-        }
-
-        echo "</tr>";
-      }
-      echo "</table>
-          <br><br>
-          <br><br>
-      ";
-      ?>
-    </form>
-
-    <form action="viewAnalyticReportHR.php" method="GET">
       <div class="row">
+      <h1>View Employee Schedule</h1>
         <div class="col-sm-5">
           <div class="form-group">
             <label for="start-date">Start Date:</label>
@@ -107,74 +131,61 @@
             <input type="date" class="form-control" name="end-date" id="end-date" date_format="yyyy-mm-dd">
           </div>
         </div>
-        <div class="col-sm-3">
-          <button type="submit" class="btn btn-primary btn-block" name="search" id="search">Search</button>
+        <div class="col-sm-2">
         </div>
-      </div>
-      <br><br>
-      <?php
-      $sql = "SELECT * FROM request";
-      if (isset($_GET['start-date']) && isset($_GET['end-date'])) {
-        // Get start and end dates from form input
-        $startDate = $_GET['start-date'];
-        $endDate = $_GET['end-date'];
-        // Add date range filter to SQL query
-        $sql .= " WHERE requestDate BETWEEN '$startDate' AND '$endDate'";
-      }
-      $result = mysqli_query($db, $sql);
-      $result2 = mysqli_query($db, $sql . " GROUP BY request.workType");
-      ?>
-      <?php
-      $wfh = 0;
-      $hb =0;
-      $fh =0;
-      // FWArequest table
-      echo "<table class='table'>
-          <thead>
-            <tr>
-              <th scope='col'>FWA Request</th>
-              <th scope='col'>Request Date</th>
-              <th scope='col'>Total</th>
-            </tr>
-          </thead>
-        ";
-      ?>
-
-      <?php
-      while ($dept = mysqli_fetch_assoc($result)) {
-        if ($dept['workType'] == 'Work From Home') {
-          $wfh = $wfh + 1;
-        } else if ($dept['workType'] == 'Hybrid') {
-          $hb = $hb + 1;
-        } else if ($dept['workType'] == 'Flexi Hours') {
-          $fh = $fh + 1;
-        }
-      }
-
-      while ($dept = mysqli_fetch_assoc($result2)) {
-        echo "<tr>
-          <td>$dept[workType]</td>        
-          <td>$dept[requestDate]</td>";
-
-        if ($dept['workType'] == 'Work From Home') {
-          echo "<td>$wfh</td>";
-        } else if ($dept['workType'] == 'Hybrid') {
-          echo "<td>$hb</td>";
-        } else if ($dept['workType'] == 'Flexi Hours') {
-          echo "<td>$fh</td>";
-        }
-
-        echo "</tr>";
-      }
-      echo "</table>";
-      ?>
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="deptName">Department:</label>
+            <select name="deptName" id="deptName" class="form-control">
+              <option value="">-- Select Department --</option>
+              <?php
+              // Query the departments table to get a list of all departments
+              $deptQuery = "SELECT * FROM department";
+              $deptResult = mysqli_query($db, $deptQuery);
+              while ($deptRow = mysqli_fetch_assoc($deptResult)) {
+                // Output a select option for each department
+                echo '<option value="' . $deptRow['deptName'] . '"';
+                if (isset($_GET['deptName']) && $_GET['deptName'] == $deptRow['deptName']) {
+                  echo ' selected';
+                }
+                echo '>' . $deptRow['deptName'] . '</option>';
+              }
+              ?>
+            </select>
+            <br>
+            <button type="submit" class="btn btn-primary btn-block col-sm-3" name="search" id="search">Search</button>
+          </div>
+        </div>
     </form>
 
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Work Location</th>
+          <th>Work Hours</th>
+          <th>Department</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        while ($row = mysqli_fetch_assoc($scheduleFetch)) {
+          echo "
+          <tr>
+            <td>$row[date]</td>
+            <td>$row[workLocation]</td>
+            <td>$row[workHours]</td>
+            <td>$row[deptName]</td>
+            ";
+        }
+        ?>
+    </table>
+    </div>
   </main>
 
   <script>
     // Add an event listener to the department select dropdown
-    document.getElementById("deptSelect").addEventListener("change", function() {
+    document.getElementById("deptName").addEventListener("change", function() {
       // Submit the form to reload the page with the selected department filtered
       document.getElementById("filterForm").submit();
     });
