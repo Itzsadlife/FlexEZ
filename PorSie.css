@@ -99,7 +99,6 @@ form {
 
 .error p {
     visibility: visible;
-}
 
 nav a:link {
     color: white;
@@ -116,4 +115,4 @@ nav a:link {
   .btn-success a {
     color: #fff !important;
   }
-  
+

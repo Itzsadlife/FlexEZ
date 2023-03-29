@@ -47,6 +47,7 @@ if (isset($_POST['submitForm'])) {
                             echo
                             "
                         <option value='$row[deptID]'>$row[deptID] || $row[deptName] </option> 
+
                     ";
                         }
                         ?>

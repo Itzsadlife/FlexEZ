@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2023 at 11:01 AM
+-- Generation Time: Mar 27, 2023 at 12:24 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -41,7 +41,10 @@ CREATE TABLE `dailyschedule` (
 --
 
 INSERT INTO `dailyschedule` (`employeeID`, `date`, `workLocation`, `workHours`, `workReport`, `supervisorComments`) VALUES
-('E001', '2023-03-21', 's2', 10, NULL, NULL);
+('E123', '2023-03-21', 'home', 5, NULL, NULL),
+('E124', '2023-03-24', 'home', 5, NULL, NULL),
+('E123', '2023-03-21', 'home', 5, NULL, NULL),
+('E123', '2023-03-29', 'home', 5, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -60,7 +63,8 @@ CREATE TABLE `department` (
 
 INSERT INTO `department` (`deptID`, `deptName`) VALUES
 ('D0001', 'Information Technology'),
-('D0002', 'Marketing');
+('D0002', 'Marketing'),
+('D0003', 'Human Resources');
 
 -- --------------------------------------------------------
 
@@ -74,6 +78,7 @@ CREATE TABLE `employee` (
   `name` varchar(50) NOT NULL,
   `position` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
+  `FWAstatus` varchar(14) NOT NULL,
   `SupervisorID` varchar(10) DEFAULT NULL,
   `deptID` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -82,8 +87,10 @@ CREATE TABLE `employee` (
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`employeeID`, `password`, `name`, `position`, `email`, `SupervisorID`, `deptID`) VALUES
-('E001', 'leonchew', 'Chew Kai Liang', 'IT developer', 'iamcubex@gmail.com', 'S02', 'D0001');
+INSERT INTO `employee` (`employeeID`, `password`, `name`, `position`, `email`, `FWAstatus`, `SupervisorID`, `deptID`) VALUES
+('E001', 'leonchew', 'Chew Kai Liang', 'IT developer', 'iamcubex@gmail.com', 'Work From Home', 'S02', 'D0001'),
+('E123', 'leonchew', 'Yeoh', 'Intern', 'yeoh@gmail.com', 'NEW', 'S02', 'D0001'),
+('E124', 'leonchew', 'chew', 'IT', 'yeoh', 'NEW', 'S02', 'D0001'),
 
 -- --------------------------------------------------------
 
@@ -107,7 +114,10 @@ CREATE TABLE `request` (
 --
 
 INSERT INTO `request` (`requestID`, `employeeID`, `requestDate`, `workType`, `description`, `reason`, `FWAstatus`, `comment`) VALUES
-('S001', 'E001', '2022-02-09', 'Work From Home', 'Work From Home', 'Work From Home', 'Pending', '');
+
+('R487', 'E001', '2023-03-27', 'Work From Home', 'Work From Home', 'Work From Home\r\n', 'Accept', '');
+('R453', 'E001', '2023-03-29', 'Hybrid', 'test', 'test', 'Pending', '');
+
 
 --
 -- Indexes for dumped tables
