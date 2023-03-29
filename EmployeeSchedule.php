@@ -1,7 +1,7 @@
 <?php
 include('db.php');
 include('headerSupervisor.php');
-$employeeID = $_GET['employeeID'];
+$employeeID = $_GET['id'];
 $workHours = $_GET['workHours'];
 $workLocation = $_GET['workLocation'];
 $query ="SELECT * FROM employee WHERE employeeID='$employeeID'";
