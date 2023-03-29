@@ -47,6 +47,7 @@ if (isset($_POST['submit'])) {
                       WHERE SupervisorID IS NOT NULL 
                       AND request.employeeID = '$_SESSION[employeeID]' 
                       AND request.FWAstatus ='Accept'
+                      OR request.FWAstatus ='Reject'
                      ";
     $check = mysqli_query($db, $updateRequest);
     if (mysqli_num_rows($result) > 0) {
