@@ -24,10 +24,9 @@
                     <nav>
                         <div class="row row-cols-5 row-cols-md-1">
                             <div class="col py-3 text-center text-md-left">Menu</div>
-                            <div class="col py-3 text-center text-md-left"><a href="ReviewRequest.php">Review Request</a></div>
+                            <div class="col py-3 text-center text-md-left"><a href="RegisterEmployee.php">Register Employee</a></div>
                             <div class="col py-3 text-center text-md-left"><a href="viewAnalyticReport.php">View FWA Analytics</a></div>
-                            <div class="col py-3 text-center text-md-left"><a href="ReviewEmployeeSchedule.php">Review Employee Schedule</a></div>
-                            <div class="col py-3 text-center text-md-left"><a href="logout.php">Logout</a></div>
+                            <div class="col py-3 text-center text-md-left"><a href="login.php">Logout</a></div>
                         </div>
                     </nav>
                 </div>

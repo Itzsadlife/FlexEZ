@@ -33,6 +33,15 @@ $result = mysqli_query($db,$sql);
     <th>Department</th>
     <th>Number of Requests</th>
     </tr>";
+    if(mysqli_num_rows($result)==0){
+      echo"
+      <tr><td>
+      <strong>No data Found</strong>
+      </td>
+      </tr>
+      ";
+    }
+    else{
     while ($row = mysqli_fetch_assoc($result)) {
         $requestDate = $row['requestDate'];
         $numRequests = $row['num_requests'];
@@ -45,9 +54,9 @@ $result = mysqli_query($db,$sql);
         <td>$deptName</td>
         <td>$numRequests</td></tr>";
     }
+  }
     echo "</table>";    
     ?>
-
 <?php
 //sql for searching date
   $schedule = "
@@ -70,7 +79,7 @@ $result = mysqli_query($db,$sql);
   ?>
 
   <main class="container">
-
+  <hr>
     <form method="GET" action="viewAnalyticReport.php">
       <div class="row">
       <h3>View Employee Schedule</h3>
@@ -106,6 +115,15 @@ $result = mysqli_query($db,$sql);
       </thead>
       <tbody>
         <?php
+        if(mysqli_num_rows($scheduleFetch)==0){
+          echo "<tr>
+                <td>
+                <strong>No Data Found</strong>
+                </td>
+                </tr>
+                ";
+        }
+        else{
         while ($row = mysqli_fetch_assoc($scheduleFetch)) {
           echo "
           <tr>
@@ -115,6 +133,7 @@ $result = mysqli_query($db,$sql);
             <td>$row[deptName]</td>
             ";
         }
+      }
         ?>
     </table>
     <button class="btn btn-primary btn-block col-sm-3"><a href="supervisorDashBoard.php" style="color:white">Back To Home</a></button>
