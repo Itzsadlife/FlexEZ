@@ -42,6 +42,10 @@ CREATE TABLE `dailyschedule` (
 
 INSERT INTO `dailyschedule` (`employeeID`, `date`, `workLocation`, `workHours`, `workReport`, `supervisorComments`) VALUES
 ('E001', '2023-03-21', 's2', 10, NULL, NULL);
+('E123', '2023-03-21', 'home', 5, NULL, NULL),
+('E124', '2023-03-24', 'home', 5, NULL, NULL),
+('E123', '2023-03-21', 'home', 5, NULL, NULL),
+('E123', '2023-03-29', 'home', 5, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -85,12 +89,9 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`employeeID`, `password`, `name`, `position`, `email`, `FWAstatus`, `SupervisorID`, `deptID`) VALUES
-('', '', '', '', '', 'NEW', 'S02', 'D0001'),
 ('E001', 'leonchew', 'Chew Kai Liang', 'IT developer', 'iamcubex@gmail.com', 'Work From Home', 'S02', 'D0001'),
 ('E123', 'leonchew', 'Yeoh', 'Intern', 'yeoh@gmail.com', 'NEW', 'S02', 'D0001'),
 ('E124', 'leonchew', 'chew', 'IT', 'yeoh', 'NEW', 'S02', 'D0001'),
-('H001', 'leonchew', 'HR ADMIN', 'HR ADMIN', 'yeoh@gmail.com', 'HR', NULL, 'D0003'),
-('S02', 'leonchew', 'Supervisor', 'IT Supervisor', 'yeoh@gmail.com', 'Supervisor', NULL, 'D0001');
 
 -- --------------------------------------------------------
 
@@ -115,6 +116,7 @@ CREATE TABLE `request` (
 
 INSERT INTO `request` (`requestID`, `employeeID`, `requestDate`, `workType`, `description`, `reason`, `FWAstatus`, `comment`) VALUES
 ('R487', 'E001', '2023-03-27', 'Work From Home', 'Work From Home', 'Work From Home\r\n', 'Accept', '');
+('R453', 'E001', '2023-03-29', 'Hybrid', 'test', 'test', 'Pending', '');
 
 --
 -- Indexes for dumped tables

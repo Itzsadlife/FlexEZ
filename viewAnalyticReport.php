@@ -9,79 +9,136 @@ $loginData = mysqli_query($db, $data);
 $row = $loginData->fetch_assoc();
 $deptID = $row['deptID'];
 
+$sql = "SELECT department.*, employee.*, request.*, COUNT(DISTINCT employee.employeeID) AS num_requests
+        FROM request
+        INNER JOIN employee ON request.employeeID = employee.employeeID
+        INNER JOIN department ON employee.deptID = department.deptID
+        WHERE request.FWAstatus <> 'Pending' AND request.FWAstatus <> 'Reject' 
+        AND employee.deptID = '$deptID'
+        GROUP BY request.requestID";
+$result = mysqli_query($db,$sql);
 // table
-$sql = "SELECT * FROM employee, department 
-        WHERE employee.deptID = '$deptID'  
-        AND employeeID NOT LIKE 'S%' 
-        AND employeeID NOT LIKE 'H%'
-        AND '$deptID' = department.deptID
-        GROUP BY employee.FWAstatus";
-$result = mysqli_query($db, $sql);
-
-$sql = "SELECT COUNT(employee.FWAstatus) AS `Total`, employee.*, department.* 
-        FROM employee, department 
-        WHERE employee.deptID = '$deptID' 
-        AND employee.FWAstatus = 'Work From Home' 
-        AND department.deptID = employee.deptID";
-$workFromHome = mysqli_query($db, $sql);
-
-$sql = "SELECT COUNT(employee.FWAstatus) AS `Total`, employee.*, department.* 
-        FROM employee, department 
-        WHERE employee.deptID = '$deptID' 
-        AND employee.FWAstatus = 'FlexiHours' 
-        AND department.deptID = employee.deptID";
-$flexihours = mysqli_query($db, $sql);
-
-$sql = "SELECT COUNT(employee.FWAstatus) AS `Total`, employee.*, department.* 
-        FROM employee, department 
-        WHERE employee.deptID = '$deptID' 
-        AND employee.FWAstatus = 'Hybrid' 
-        AND department.deptID = employee.deptID";
-$hybrid = mysqli_query($db, $sql);
 ?>
+
 
 <main>
   <form>
+  <div class="row">
+      <h3>View FWA Analytic</h3>
     <?php
-    echo "
-      <table class='table'> 
-        <thead>
-          <tr>
-            <th scope='col'>FWA Status</th>
-            <th scope='col'>Department</th>
-            <th scope='col'>Total</th>
-          </tr>
-        </thead>
-    ";
-
-    while ($row = mysqli_fetch_assoc($result)) {
-        echo "
-          <tr>
-            <td>$row[FWAstatus]</td>
-            <td>$row[deptName]</td>
-        ";
-
-        if ($row['FWAstatus'] === 'Work From Home') {
-            while ($workRow = mysqli_fetch_assoc($workFromHome)) {
-                echo "<td>$workRow[Total]</td>";
-            }
-            echo "</tr>";
-        } elseif ($row['FWAstatus'] === 'FlexiHours') {
-            while ($flexiRow = mysqli_fetch_assoc($flexihours)) {
-                echo "<td>$flexiRow[Total]</td>";
-            }
-            echo "</tr>";
-        }else{
-            while ($hybridRow = mysqli_fetch_assoc($hybrid)) {
-                echo "<td>$hybridRow[Total]</td>";
-            }
-            echo "</tr>";
-        }
+    echo "<table class='table'>";
+    echo "<tr>
+    <th>Date</th>
+    <th>FWA Status</th>
+    <th>Department</th>
+    <th>Number of Requests</th>
+    </tr>";
+    if(mysqli_num_rows($result)==0){
+      echo"
+      <tr><td>
+      <strong>No data Found</strong>
+      </td>
+      </tr>
+      ";
     }
-
-    echo "</table>";
+    else{
+    while ($row = mysqli_fetch_assoc($result)) {
+        $requestDate = $row['requestDate'];
+        $numRequests = $row['num_requests'];
+        $deptName = $row['deptName'];
+        $fwaStatus = $row['workType'];
+        
+        echo "<tr>
+        <td>$requestDate</td>
+        <td>$fwaStatus</td>
+        <td>$deptName</td>
+        <td>$numRequests</td></tr>";
+    }
+  }
+    echo "</table>";    
     ?>
-  </form>
+<?php
+//sql for searching date
+  $schedule = "
+  SELECT * FROM dailyschedule
+  INNER JOIN employee ON dailyschedule.employeeID = employee.employeeID
+  INNER JOIN department ON employee.deptID = department.deptID
+  WHERE department.deptID = '$deptID'
+  ";
+  $scheduleFetch = mysqli_query($db, $schedule);
+
+  if (isset($_GET['start-date']) && isset($_GET['end-date'])) {
+    // Get start and end dates from form input
+    $startDate = $_GET['start-date'];
+    $endDate = $_GET['end-date'];
+    // Add date range filter to SQL query
+    $schedule .= " AND date BETWEEN '$startDate' AND '$endDate'";
+  }
+  $schedule .= " ORDER BY date ASC";
+  $scheduleFetch = mysqli_query($db, $schedule);
+  ?>
+
+  <main class="container">
+  <hr>
+    <form method="GET" action="viewAnalyticReport.php">
+      <div class="row">
+      <h3>View Employee Schedule</h3>
+        <div class="col-sm-5">
+          <div class="form-group">
+            <label for="start-date">Start Date:</label>
+            <input type="date" class="form-control" name="start-date" id="start-date" date_format="yyyy-mm-dd">
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="form-group">
+            <label for="end-date">End Date:</label>
+            <input type="date" class="form-control" name="end-date" id="end-date" date_format="yyyy-mm-dd">
+          </div>
+        </div>
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-12">
+            <button type="submit" class="btn btn-primary btn-block col-sm-3" name="search" id="search">Search</button>
+            <br>
+          </div>
+        </div>
+    </form>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Work Location</th>
+          <th>Work Hours</th>
+          <th>Department</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        if(mysqli_num_rows($scheduleFetch)==0){
+          echo "<tr>
+                <td>
+                <strong>No Data Found</strong>
+                </td>
+                </tr>
+                ";
+        }
+        else{
+        while ($row = mysqli_fetch_assoc($scheduleFetch)) {
+          echo "
+          <tr>
+            <td>$row[date]</td>
+            <td>$row[workLocation]</td>
+            <td>$row[workHours]</td>
+            <td>$row[deptName]</td>
+            ";
+        }
+      }
+        ?>
+    </table>
+    <button class="btn btn-primary btn-block col-sm-3"><a href="supervisorDashBoard.php" style="color:white">Back To Home</a></button>
+    <br>
+    </div>
 </main>
 
 <?php

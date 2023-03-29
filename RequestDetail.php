@@ -16,7 +16,7 @@ include 'db.php';
         <th></th>
     </thead>
     
-    <form method="POST" action="submitRequestdb.php?<?php echo "id=$_GET[id]&rID=$_GET[rID]"?>">
+    <form method="POST" action="submitRequestdb.php?<?php echo "id=$_GET[id]&rID=$_GET[rID]&workType=$_GET[workType]"?>">
 <?php
     $sql = "SELECT request.*, employee.*, request.FWAstatus AS 'status'
     FROM request
@@ -50,13 +50,17 @@ include 'db.php';
             <option value='Reject'>Reject</option>
             </select>
         </td>
+        </table>
+        <div style='margin-top: 10px;'>
+        <button type='submit' class='btn btn-primary' name='submit'>Submit</button>
+        &nbsp;&nbsp;&nbsp;
+        <button class='btn btn-primary'><a href='ReviewRequest.php' style='color:white'>Back</a></button>
+        </div>
         ";
     }
 }
 ?>
-    
     </table>
-    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
     </form>
 </main>
 

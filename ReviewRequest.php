@@ -48,7 +48,7 @@ include 'db.php'
             echo
             "
         <tr>
-        <td><a href='RequestDetail.php?id=$row[employeeID]&rID=$row[requestID]'>$row[employeeID]</a></td>
+        <td><a href='RequestDetail.php?id=$row[employeeID]&rID=$row[requestID]&workType=$row[workType]'>$row[employeeID]</a></td>
         <td>$row[requestID]</td>
         <td>$row[name]</td>
         <td style='color: $statusColor'>$row[status]</td>
@@ -58,6 +58,8 @@ include 'db.php'
         }
         ?>
     </table>
+    <button class="btn btn-primary btn-block col-sm-3"><a href="supervisorDashBoard.php" style="color:white">Back To Home</a></button>
+    <br>
 </main>
 <script>
     document.getElementById('statusFilter').addEventListener('change', function() {

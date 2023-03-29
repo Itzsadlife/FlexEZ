@@ -62,7 +62,7 @@ $result = mysqli_query($db, $sql);
         <th>Department Name</th>
         <th>Total</th>
         </tr>";
-
+    
     if (mysqli_num_rows($result) > 0) {
       while ($row = mysqli_fetch_assoc($result)) {
         $deptName = $row['deptName'];
@@ -140,7 +140,7 @@ $result = mysqli_query($db, $sql);
               <option value="">-- Select Department --</option>
               <?php
               // Query the departments table to get a list of all departments
-              $deptQuery = "SELECT * FROM department";
+              $deptQuery = "SELECT * FROM department WHERE deptName !='Human Resources'";
               $deptResult = mysqli_query($db, $deptQuery);
               while ($deptRow = mysqli_fetch_assoc($deptResult)) {
                 // Output a select option for each department
@@ -169,6 +169,13 @@ $result = mysqli_query($db, $sql);
       </thead>
       <tbody>
         <?php
+        if(mysqli_num_rows($scheduleFetch)==0){
+          echo
+          "
+          <tr><td colspan='3'>No Data Found</td></tr>
+          ";
+        }
+        else{
         while ($row = mysqli_fetch_assoc($scheduleFetch)) {
           echo "
           <tr>
@@ -178,9 +185,12 @@ $result = mysqli_query($db, $sql);
             <td>$row[deptName]</td>
             ";
         }
+      }
         ?>
     </table>
+    <button class="btn btn-primary btn-block col-sm-3"><a href="HRAdminDashBoard.php" style="color:white">Back To Home</a></button>
     </div>
+    <br>
   </main>
 
   <script>

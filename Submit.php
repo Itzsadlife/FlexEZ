@@ -9,7 +9,7 @@ if (isset($_SESSION['employeeID']) && isset($_SESSION['name'])) {
 
     <!DOCTYPE html>
     <html lang="en">
-<?php include('headerkai.php')?>
+<?php include('headerEmployee.php')?>
                     <main>
                         <hr>
                         <div id="EmployeeForm">
@@ -55,7 +55,7 @@ if (isset($_SESSION['employeeID']) && isset($_SESSION['name'])) {
                                 </div>
                             </form>
                         </div>
-               <?php include('footerkai.php')?>
+               <?php include('footer.php')?>
 
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
