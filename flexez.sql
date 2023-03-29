@@ -41,7 +41,6 @@ CREATE TABLE `dailyschedule` (
 --
 
 INSERT INTO `dailyschedule` (`employeeID`, `date`, `workLocation`, `workHours`, `workReport`, `supervisorComments`) VALUES
-('E001', '2023-03-21', 's2', 10, NULL, NULL);
 ('E123', '2023-03-21', 'home', 5, NULL, NULL),
 ('E124', '2023-03-24', 'home', 5, NULL, NULL),
 ('E123', '2023-03-21', 'home', 5, NULL, NULL),
@@ -115,8 +114,10 @@ CREATE TABLE `request` (
 --
 
 INSERT INTO `request` (`requestID`, `employeeID`, `requestDate`, `workType`, `description`, `reason`, `FWAstatus`, `comment`) VALUES
+
 ('R487', 'E001', '2023-03-27', 'Work From Home', 'Work From Home', 'Work From Home\r\n', 'Accept', '');
 ('R453', 'E001', '2023-03-29', 'Hybrid', 'test', 'test', 'Pending', '');
+
 
 --
 -- Indexes for dumped tables
