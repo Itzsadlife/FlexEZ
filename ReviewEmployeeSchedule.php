@@ -12,7 +12,7 @@ $_SESSION['employeeID'];
                         <?php
                         echo "<select name='date'>
                                     <option value=''>Available Date</option>";
-                        $query ="SELECT * FROM dailySchedule";
+                        $query ="SELECT * FROM dailySchedule GROUP BY date";
                         $result = mysqli_query($db, $query);
                         foreach ($result as $row) {
                             echo "<option value='" . $row['date'] . "'>" . $row['date'] . "</option>";
@@ -49,28 +49,26 @@ if(isset($employees)>0)
                             if(count($employees)>0)
                             {
                             foreach ($employees as $employee) {
-                            ?>
+                            echo"
                             <tr>
-                            <td><a href="EmployeeSchedule.php?employeeID=<?php echo $employee['employeeID'];?>
-                            &workLocation=<?php echo $employee['workLocation'];?>&workHours=<?php echo $employee['workHours'];?>
-                            "><?php echo $employee['employeeID']; ?></td>
-                            <td><?php echo $employee['workLocation']; ?></td>
-                            <td><?php echo $employee['workHours']; ?></td>
-                            <td><?php echo $employee['workReport']; ?></td>
-                            </tr>
-                            <?php
+                            <td><a href='EmployeeSchedule.php?id=$employee[employeeID]&workLocation=$employee[workLocation]&workHours=$employee[workHours]'>$employee[employeeID]</td></a>
+                            <td>$employee[workLocation]</td>
+                            <td>$employee[workHours]</td>
+                            <td>$employee[workReport]</td>
+                            </tr>";
                             }
                             }else{
-                            echo "<tr><td colspan='3'>No Data Found</td></tr>";
+                            echo"
+                            <tr><td colspan='3'>No Data Found</td></tr>
                             }
-                            ?>
-                            </table>
-                            <?php
+                            </table>";
                             }
+                        }
                             ?>
                         </tbody>
                     </table><hr><br><br><br>
-                    <button type="button" class="btn btn-light"><a href='SupervisorDashboard.php'>Back</button>
+                    <button type="button" class="btn btn-success"><a href='SupervisorDashboard.php'>Back</button>
 
                 </div>
-<?php include('footer.php');?>
+<?php include('footer.php');
+?>
