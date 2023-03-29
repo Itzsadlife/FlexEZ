@@ -40,16 +40,12 @@ if (isset($_POST['submitForm'])) {
         <form id="empForm" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>">
             <fieldset class="border p-2">
                 <div class="form-group input-control">
-                    <label for="deptID">Please select the department: </label>
-                    <select name="deptID" id="deptID">
-                        <?php
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo
-                            "
-                        <option value='$row[deptID]'>$row[deptID] || $row[deptName] </option> 
-                    ";
-                        }
-                        ?>
+                    <label for="deptID">Please select the department ID: </label>
+                    <select class="form-select" name="deptID" id="deptID">
+                        <option selected value="department0"> Department ID </option>
+                        <option value="D0001"> D0001 </option>
+                        <option value="D0002"> D0002 </option>
+                        <option value="D0003"> D0003</option>
                     </select>
                     <p>Error message</p>
                 </div>
