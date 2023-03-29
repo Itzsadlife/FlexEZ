@@ -100,3 +100,20 @@ form {
 .error p {
     visibility: visible;
 }
+
+nav a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+  }
+ 
+  a:hover {
+    color: gray;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
+  .btn-success a {
+    color: #fff !important;
+  }
+  
