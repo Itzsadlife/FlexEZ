@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
     INNER JOIN request on request.employeeID = employee.employeeID
     WHERE SupervisorID IS NOT NULL 
     AND request.employeeID = '$_SESSION[employeeID]' 
-    AND employee.FWAstatus !='Pending'";
+    AND request.FWAstatus ='Pending'";
     $result = mysqli_query($db, $sql);
     $row = mysqli_num_rows($result);
     $updateRequest = "
@@ -47,12 +47,11 @@ if (isset($_POST['submit'])) {
                       WHERE SupervisorID IS NOT NULL 
                       AND request.employeeID = '$_SESSION[employeeID]' 
                       AND request.FWAstatus ='Accept'
-                      OR request.FWAstatus ='Reject'
                      ";
     $check = mysqli_query($db, $updateRequest);
-    if (mysqli_num_rows($result) > 0) {
+    if (mysqli_num_rows($result) == 0) {
         //check if the employee has accepted request but submit request to change the workType
-        if (mysqli_num_rows($check) > 0) {
+        if (mysqli_num_rows($check) ==1) {
             $query = " UPDATE request set FWAstatus='Pending', 
                         workType = '$workType',
                         description='$Description',
@@ -108,7 +107,7 @@ if (isset($_POST['submit'])) {
                     </body>
 
                     </html>";
-        } elseif (mysqli_num_rows($result) == 1) {
+        } elseif (mysqli_num_rows($result) == 0) {
             $query = "INSERT INTO request (requestID, employeeID, requestDate, workType, description, reason, FWAstatus)
             VALUES ('$randomID', '$_SESSION[employeeID]', '$convertedDate', '$workType', '$Description', '$Reason', 'Pending')";
             $result = mysqli_query($db, $query);
