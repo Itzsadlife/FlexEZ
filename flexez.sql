@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2023 at 02:24 PM
+-- Generation Time: Apr 03, 2023 at 06:29 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -41,9 +41,9 @@ CREATE TABLE `dailyschedule` (
 --
 
 INSERT INTO `dailyschedule` (`employeeID`, `date`, `workLocation`, `workHours`, `workReport`, `supervisorComments`) VALUES
-('E001', '2023-03-21', 'Gay', 0, 'gay', NULL),
+('E001', '2023-03-21', 'ELM', 1, 'work', 'very very good'),
 ('E123', '2023-03-21', 'home', 5, NULL, NULL),
-('E124', '2023-03-24', 'home', 5, NULL, NULL),
+('E124', '2023-03-24', 'home', 5, NULL, 'hi'),
 ('E123', '2023-03-21', 'home', 5, NULL, NULL),
 ('E123', '2023-03-29', 'home', 5, NULL, NULL);
 
@@ -89,9 +89,10 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`employeeID`, `password`, `name`, `position`, `email`, `FWAstatus`, `SupervisorID`, `deptID`) VALUES
-('E001', 'leonchew', 'Chew Kai Liang', 'IT developer', 'iamcubex@gmail.com', 'Work From Home', 'S02', 'D0001'),
-('E123', 'leonchew', 'Yeoh', 'Intern', 'yeoh@gmail.com', 'Work From Home', 'S02', 'D0001'),
-('E124', 'leonchew', 'chew', 'IT', 'yeoh', 'Work From Home', 'S02', 'D0002'),
+('E001', 'leonchew', 'Chew Kai Liang', 'IT developer', 'iamcubex@gmail.com', 'Flexi Hours', 'S02', 'D0001'),
+('E123', 'leonchew', 'Yeoh', 'Intern', 'yeoh@gmail.com', 'NEW', 'S02', 'D0001'),
+('E124', 'leonchew', 'chew', 'IT', 'yeoh', 'Hybrid', 'S02', 'D0002'),
+('E233', 'leonchew', 'Jian Wen', 'IT Developer', 'jianwen@gmail.com', 'Flexi Hours', 'S02', 'D0002'),
 ('H001', 'leonchew', 'HR ADMIN', 'HR ADMIN', 'yeoh@gmail.com', 'HR', NULL, 'D0003'),
 ('S02', 'leonchew', 'Supervisor', 'IT Supervisor', 'yeoh@gmail.com', 'Supervisor', NULL, 'D0001');
 
@@ -117,9 +118,7 @@ CREATE TABLE `request` (
 --
 
 INSERT INTO `request` (`requestID`, `employeeID`, `requestDate`, `workType`, `description`, `reason`, `FWAstatus`, `comment`) VALUES
-('R087', 'E123', '2023-03-29', 'Work From Home', 'hi', 'hi', 'Accept', ''),
-('R758', 'E124', '2023-03-29', 'Work From Home', 'work', 'work', 'Accept', ''),
-('R912', 'E001', '2023-03-29', 'Work From Home', 'work', 'work', 'Accept', '');
+('R449', 'E001', '2023-04-03', 'Flexi Hours', 'work', 'work\r\n', 'Accept', '');
 
 --
 -- Indexes for dumped tables
