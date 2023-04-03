@@ -4,8 +4,7 @@ var empID=document.querySelector("#EmployeeID");
 var empName=document.querySelector("#EmployeeName");
 var empPosition=document.querySelector("#EmployeePosition");
 var empEmail=document.querySelector("#Email");
-var supID=document.querySelector("#SupervisorID");
-var supName=document.querySelector("#SupervisorName");
+var supID=document.querySelector("#supervisor");
 
 var empIDFormat = /^[0-9a-zA-Z]+$/;
 var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -33,7 +32,7 @@ eForm.addEventListener('submit', (event) => {
 });
 
 function validateEmployeeForm() {
-    if (DeptID && DeptID.value.trim() != "D0001" && DeptID.value.trim() != "D0002" && DeptID.value.trim() != "D0003") {
+    if (DeptID && DeptID.value.trim() =="") {
         setError(DeptID, "Please select a department ID!");
     }
     else {

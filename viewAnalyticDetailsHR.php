@@ -43,6 +43,7 @@ $result = mysqli_query($db,$sql);
     }
     echo "</table>";
     ?>
+    <a href='viewAnalyticReportHR.php'><button class = 'btn btn-primary'>Back</button></a>
 </main>
 
 <?php

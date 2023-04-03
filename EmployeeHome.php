@@ -60,7 +60,7 @@ if ($FWAstatus == 'NEW') {
                                 <input type="password" class="form-control" id="confirm_password" name="confirm_password">
                             </div>
                             <div id="password-validation-messages"></div>
-                            <input type="submit" class="btn btn-primary" name="change_password" id="change-password-btn" value="Change Password" />
+                            <input type="submit" class="btn btn-primary" name="change-passowrd-btn" id="change-password-btn" value="Change Password" />
                         </form>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ if ($FWAstatus == 'NEW') {
 
                 if (new_password.length == 0 || confirm_password.length == 0) {
                     error_messages += "<div class=\"alert alert-danger\" role=\"alert\">Please enter a new password and confirm it.</div>";
-                } else if (new_password !== confirmx_password) {
+                } else if (new_password !== confirm_password) {
                     error_messages += "<div class=\"alert alert-danger\" role=\"alert\">New password and confirm password do not match.</div>";
                 }
 
